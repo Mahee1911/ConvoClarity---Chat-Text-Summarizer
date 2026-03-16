@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConvoClarity — Chat & Text Summaries in Seconds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- NAVBAR -->
+    <header class="nav">
+      <div class="nav-left">
+        <a href="#top" class="brand">
+          <span class="brand-dot"></span>
+          <span class="brand-text">ConvoClarity</span>
+        </a>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#summarize">Summarize</a>
+        <a href="#examples">Examples</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-right">
+        <button class="btn btn-ghost theme-toggle" id="themeToggle" type="button">
+          Dark
+        </button>
+        <button class="nav-burger" id="navBurger" type="button" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main id="top">
+      <section class="hero">
+        <div class="hero-bg">
+          <div class="hero-blob hero-blob-1"></div>
+          <div class="hero-blob hero-blob-2"></div>
+        </div>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="hero-pill">From long chats to quick clarity</p>
+            <h1>Turn messy chats into calm, one‑minute recaps.</h1>
+            <p class="hero-sub">
+              Paste any conversation, email thread, or long note and let ConvoClarity
+              craft a clean, human‑sounding summary in seconds.
+            </p>
+            <div class="hero-actions">
+              <a href="#summarize" class="btn btn-primary btn-lg">Start summarizing</a>
+              <p class="hero-note">No sign‑up. Your text isn’t stored.</p>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <span class="hero-card-title">Quick glimpse</span>
+                <span class="status-badge" id="apiStatus">
+                  <span class="status-dot"></span>
+                  <span class="status-text">Checking connection…</span>
+                </span>
+              </div>
+              <p class="hero-card-body">
+                “Hey, can you summarize what we just decided about the release?”
+              </p>
+              <p class="hero-card-summary">
+                ConvoClarity:
+                <span class="hero-card-summary-text">
+                  Team will ship the new version on Friday, focus on bug fixes only,
+                  and announce to customers next Monday.
+                </span>
+              </p>
+              <p class="hero-card-foot">
+                Perfect for stand‑ups, support chats, and long message threads.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUMMARIZE -->
+      <section id="summarize" class="section section-summarize reveal">
+        <div class="container">
+          <h2>Summarize your text</h2>
+          <p class="section-lead">
+            Paste a chat, email, or article below. We’ll turn it into a clear, short recap
+            you can actually use.
+          </p>
+          <div class="card summarize-card">
+            <div class="field">
+              <label for="inputText">Paste your text</label>
+              <textarea
+                id="inputText"
+                rows="7"
+                placeholder="Paste your conversation, meeting notes, or long message here…"
+              ></textarea>
+              <div class="field-meta">
+                <span id="inputWordCount">0 words</span>
+                <span id="inputCharCount">0 characters</span>
+                <span class="field-hint">Tip: press Ctrl+Enter to summarize</span>
+              </div>
+            </div>
+            <div class="actions-row">
+              <button class="btn btn-primary" type="button" id="summarizeBtn">
+                <span class="btn-text">Summarize</span>
+                <span class="btn-spinner"></span>
+              </button>
+              <button class="btn btn-secondary" type="button" id="clearBtn">Clear</button>
+            </div>
+            <div class="error-box" id="errorBox" hidden></div>
+            <div class="summary-output" id="summaryWrap" hidden>
+              <div class="summary-header">
+                <span>Summary</span>
+                <span id="outputStats" class="summary-stats"></span>
+              </div>
+              <div class="summary-body" id="summaryText"></div>
+              <div class="summary-actions">
+                <button class="btn btn-small" type="button" id="copyBtn">Copy</button>
+                <button class="btn btn-small" type="button" id="downloadBtn">
+                  Download .txt
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXAMPLES -->
+      <section id="examples" class="section reveal">
+        <div class="container">
+          <h2>Try a quick example</h2>
+          <p class="section-lead">
+            Don’t have text handy? Click a scenario below and we’ll load it into the box
+            for you.
+          </p>
+          <div class="grid examples-grid" id="examplesGrid"></div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how" class="section section-how reveal">
+        <div class="container">
+          <h2>How ConvoClarity works</h2>
+          <p class="section-lead">
+            Designed to feel effortless. Three simple steps from chaos to clarity.
+          </p>
+          <div class="grid how-grid">
+            <div class="how-step">
+              <span class="how-badge">1</span>
+              <h3>Paste</h3>
+              <p>Drop in any conversation, email, transcript, or long block of text.</p>
+            </div>
+            <div class="how-step">
+              <span class="how-badge">2</span>
+              <h3>Summarize</h3>
+              <p>Hit Summarize. Our AI reads everything for you in the background.</p>
+            </div>
+            <div class="how-step">
+              <span class="how-badge">3</span>
+              <h3>Skim & share</h3>
+              <p>
+                Get a clean, human‑like recap you can paste into chat, docs, or email in
+                seconds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BENEFITS -->
+      <section class="section section-benefits reveal">
+        <div class="container">
+          <h2>Why people love ConvoClarity</h2>
+          <p class="section-lead">
+            Built for students, founders, teammates, and anyone who’s tired of scrolling
+            forever.
+          </p>
+          <div class="grid benefits-grid">
+            <div class="benefit-card">
+              <h3>Save serious time</h3>
+              <p>Turn ten minutes of scrolling into a one‑minute recap.</p>
+            </div>
+            <div class="benefit-card">
+              <h3>Never miss key decisions</h3>
+              <p>Capture outcomes and action items from busy chats, instantly.</p>
+            </div>
+            <div class="benefit-card">
+              <h3>Works with your flow</h3>
+              <p>Paste from anywhere: Slack, WhatsApp, email, notes, or docs.</p>
+            </div>
+            <div class="benefit-card">
+              <h3>Private by default</h3>
+              <p>Your text is sent only to generate the summary and isn’t stored.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section section-faq reveal">
+        <div class="container">
+          <h2>Questions & answers</h2>
+          <p class="section-lead">
+            A few quick answers before you start summarizing everything.
+          </p>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>Do I need to create an account?</summary>
+              <p>No. ConvoClarity works without any sign‑up. Just paste, summarize, and go.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What can I summarize?</summary>
+              <p>
+                Chats, meeting notes, email threads, articles, blog posts, lecture notes
+                — anything that’s plain text.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Is my text stored?</summary>
+              <p>
+                No. Your text is processed to generate the summary and not stored in a
+                database for this demo project.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I trust the summary?</summary>
+              <p>
+                Summaries are usually very good at capturing the main points, but always
+                skim important content yourself before making big decisions.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>ConvoClarity — turn chaos into clarity.</span>
+        <span class="footer-note">Powered by AI to simplify conversations</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
