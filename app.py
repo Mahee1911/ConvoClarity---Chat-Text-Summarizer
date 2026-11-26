@@ -13,7 +13,7 @@ from doc_summarizer.pipeline.prediction import InferencePipeline
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 
-web_app = FastAPI(
+app = FastAPI(
     title="Chat Text Summarization API",
     description="ML-powered summarization for conversations and long text",
     version="1.0.0",
@@ -32,10 +32,10 @@ class PredictResponse(BaseModel):
 
 # Mount static files (CSS, JS, assets) if folder exists
 if STATIC_DIR.exists():
-    web_app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
-@web_app.get("/")
+@app.get("/")
 async def root():
     """Serve the frontend app."""
     index_path = STATIC_DIR / "index.html"
@@ -44,13 +44,13 @@ async def root():
     return JSONResponse({"message": "API running. Add static/index.html for UI.", "docs": "/docs"})
 
 
-@web_app.get("/api/health")
+@app.get("/api/health")
 async def health():
     """Health check for monitoring and UI status."""
     return {"status": "ok", "service": "chat-summarization"}
 
 
-@web_app.get("/api/metrics")
+@app.get("/api/metrics")
 async def get_metrics():
     """Return model evaluation metrics (ROUGE) if available."""
     metrics_path = BASE_DIR / "artifacts" / "model_evaluation" / "metrics.csv"
@@ -68,7 +68,7 @@ async def get_metrics():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@web_app.post("/api/predict", response_model=PredictResponse)
+@app.post("/api/predict", response_model=PredictResponse)
 async def predict(payload: PredictRequest):
     """Summarize input text (e.g. chat or long dialogue)."""
     text = (payload.text or "").strip()
@@ -86,7 +86,7 @@ async def predict(payload: PredictRequest):
         raise HTTPException(status_code=500, detail=str(err))
 
 
-@web_app.get("/api/train")
+@app.get("/api/train")
 async def run_training():
     """Trigger training pipeline (long-running). For UI status only."""
     try:
@@ -97,7 +97,7 @@ async def run_training():
 
 
 # Legacy route for backward compatibility
-@web_app.post("/predict")
+@app.post("/predict")
 async def predict_legacy(input_text: str = ""):
     try:
         runner = InferencePipeline()
@@ -108,4 +108,4 @@ async def predict_legacy(input_text: str = ""):
 
 
 if __name__ == "__main__":
-    uvicorn.run(web_app, host="0.0.0.0", port=8191)
+    uvicorn.run(app, host="0.0.0.0", port=8191)
