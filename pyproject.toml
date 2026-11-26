@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "doc-summarizer"
+version = "0.0.0"
+description = "A Python package for the ConvoClarity NLP app"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+authors = [{ name = "entbappy", email = "entbappy73@gmail.com" }]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/Mahee1911/ConvoClarity---Chat-Text-Summarizer/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
