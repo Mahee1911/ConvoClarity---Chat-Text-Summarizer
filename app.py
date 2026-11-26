@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-# import uvicorn
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -107,5 +107,5 @@ async def predict_legacy(input_text: str = ""):
         raise HTTPException(status_code=500, detail=str(err))
 
 
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0", port=8191)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8191)
